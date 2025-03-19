@@ -1,136 +1,133 @@
 body {
-    overflow-y: hidden;
+  overflow-y: hidden;
 }
 .container {
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    height: 100vh;
-    background-image: url(../images/login-background.png);
-    background-size: 100% 100%;
-    overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  height: 100vh;
+  background-image: url(../images/login-background.png);
+  background-size: 100% 100%;
+  overflow: hidden;
 }
 
-
 .box {
-    position: relative;
-    right: 55px;
-    width: 528px;
-    height: 435px;
-    border-radius: 24px;
-    background: #FFFFFF;
+  position: relative;
+  right: 55px;
+  width: 528px;
+  height: 435px;
+  border-radius: 24px;
+  background: #ffffff;
 }
 
 .title-head {
-    /* font-family: 'Almarai-Regular'; */
-    font-size: 40px;
-    font-weight: 700;
-    text-align: center;
-    color: #1C1C1E;
-    margin-top: 3.5rem;
+  /* font-family: 'Almarai-Regular'; */
+  font-size: 40px;
+  font-weight: 700;
+  text-align: center;
+  color: #1c1c1e;
+  margin-top: 3.5rem;
 }
 
 .mail-icon {
-    position: relative;
-    left: 40px;
+  position: relative;
+  left: 40px;
 }
 
 .underline-input {
-border-radius: 8px;
-    /* font-family: 'Almarai-Regular'; */
-    background-color: #FFFFFF;
-    border: 0;
-    border: 1px solid #1C1C1E7A;
-    padding: 10px;
-    width: 384px;
-    height: 48px;
-    color: #1C1C1EB8 !important;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-margin-right: 2rem;
+  border-radius: 8px;
+  /* font-family: 'Almarai-Regular'; */
+  background-color: #ffffff;
+  border: 0;
+  border: 1px solid #1c1c1e7a;
+  padding: 10px;
+  width: 384px;
+  height: 48px;
+  color: #1c1c1eb8 !important;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  margin-right: 2rem;
 }
 
 .login-button {
-    display: flex;
-    margin-top: 25px;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  margin-top: 25px;
+  align-items: center;
+  justify-content: center;
 }
 
 .end-line {
-    text-align: center;
-    margin-top: 40px;
+  text-align: center;
+  margin-top: 40px;
 }
 
 .endline-1 {
-    /* font-family: 'Almarai-Regular'; */
-    margin-right: 0.5rem;
-    font-size: 16px;
-    font-weight: 400;
-    color: #1C1C1E;
+  /* font-family: 'Almarai-Regular'; */
+  margin-right: 0.5rem;
+  font-size: 16px;
+  font-weight: 400;
+  color: #1c1c1e;
 }
 
 .endline-2 {
-    margin-left: 0.5rem;
-    font-size: 16px;
-    font-weight: 700;
-    color: #005CB9;
+  margin-left: 0.5rem;
+  font-size: 16px;
+  font-weight: 700;
+  color: #005cb9;
 }
 
-
 .p-inputtext {
-    padding: 0.75rem 2.75rem !important;
+  padding: 0.75rem 2.75rem !important;
 }
 
 .textBox {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .commonText {
-    display: flex;
-    justify-content: center;
-
+  display: flex;
+  justify-content: center;
 }
 
 .loginButton {
-    border-radius: 8px;
-    background: #005CB9;
-    display: flex;
-    width: 384px;
-    height: 48px;
-    padding: 10px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    color: #FFFFFF;
-    text-align: center;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
+  border-radius: 8px;
+  background: #005cb9;
+  display: flex;
+  width: 384px;
+  height: 48px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
 }
 
 .loginButton:focus {
-    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #e6dff9,
-        0 1px 2px 0 rgb(252, 252, 252);
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #e6dff9,
+    0 1px 2px 0 rgb(252, 252, 252);
 }
 
 @media (min-width: 1030px) and (max-width: 1400px) {
-    .box {
-        position: relative;
-        right: 55px;
-        width: 455px;
-        height: 400px;
-    }
+  .box {
+    position: relative;
+    right: 55px;
+    width: 455px;
+    height: 400px;
+  }
 }
 @media (min-width: 900px) and (max-width: 1029px) {
-.box {
+  .box {
     position: relative;
     right: 19px;
     width: 440px;
     height: 400px;
-}
+  }
 }

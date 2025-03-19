@@ -1,117 +1,77 @@
 import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
+import "./css/login.css";
 import { useNavigate } from "react-router-dom";
 import "./css/login.css";
-import { useForm } from "react-hook-form";
-import { useState, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
-import { useStoreActions } from "easy-peasy";
 import axios from "axios";
 import constants from "./components/constants/constants";
-import icon from "./images/email.png";
 
 const Login = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const setUser = useStoreActions((actions) => actions.loginModel.setUser);
-
   const navigate = useNavigate();
-  const toast = useRef(null);
 
-  useEffect(() => {
-    setUser([]);
-  }, [setUser]);
-
-  const handleLogin = (payload) => {
-    setIsLoading(true);
-    axios
-      .post(constants.URL.GOOGLESIGNIN, payload)
-      .then((resp) => {
-        setUser(resp.data.results);
-        navigate("/TopBar");
-      })
-      .catch((e) => {
-        toast.current?.show({
-          severity: "error",
-          summary: "Failure",
-          detail: e?.response?.data?.message || "Login failed",
-        });
-        console.error(e);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
-
-  const handleGoogleLogin = (tokenResponse) => {
-    console.log(tokenResponse, "tokenResponse"); // Debugging: Check the actual response
-    const payload = {
-      email_address: tokenResponse.email_address,
-      googleToken: tokenResponse.access_token,
-    };
-    handleLogin(payload);
-    console.log(payload, "payload");
-  };
-  const googlelogin = useGoogleLogin({
+  const googleLoginn = useGoogleLogin({
     scope: "openid profile email",
-    onSuccess: handleGoogleLogin,
-    onError: (error) => console.error(error),
-    // ux_mode: "redirect", // Ensure it's set to redirect mode if necessary
-    // redirect_uri: "http://localhost:3000/", // Update this based on your Google Cloud Console settings
+    onSuccess: async (response) => {
+      try {
+        const { access_token } = response;
+        const userInfo = await axios.get(
+          "https://www.googleapis.com/oauth2/v1/userinfo",
+          {
+            headers: { Authorization: `Bearer ${access_token}` },
+          }
+        );
+
+        const { email, name } = userInfo.data;
+
+        console.log("email", email);
+        console.log("access_token", access_token);
+        console.log("name", name);
+        console.log("Stored Token:", localStorage.getItem("googleToken"));
+
+        // Store credentials locally
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("googleToken", access_token);
+        localStorage.setItem("userName", name);
+
+        // Send token to backend for verification
+
+        axios
+          .post(constants.URL.googleLogin, { googleToken: access_token })
+          .then((res) => console.log("Backend Response:", res.data))
+          .catch((err) => console.error("Backend Error:", err));
+        console.log("Google Login Success:", response);
+        navigate("/TopBar"); // Redirect to main page after login
+      } catch (error) {
+        console.error("Login Error:", error);
+      }
+    },
+    onError: (error) => console.error("Google Login Error", error),
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit = (data) => {
-    if (!data.userEmail) {
-      return;
-    }
-    navigate("/TopBar");
-  };
+  // useEffect(() => {
+  //   // Auto-login if credentials exist
+  //   const storedToken = localStorage.getItem("googleToken");
+  //   if (storedToken) {
+  //     navigate("/TopBar");
+  //   }
+  // }, [navigate]);
 
   return (
     <div className="container">
       <div className="box">
         <h1 className="title-head">One Stop Portal</h1>
         <div className="commonText">
-          <form onSubmit={handleSubmit(onSubmit)} className="error_msg">
-            <div className="textBox">
-              <img
-                className="mail-icon mr-2"
-                height="24"
-                width="24"
-                src={icon}
-                alt="email"
-                style={{ position: "relative", left: "40px" }}
-              />
-              <InputText
-                id="userEmail"
-                type="text"
-                placeholder="Email Address"
-                className="underline-input"
-                {...register("userEmail", { required: "Email is required" })}
-              />
-            </div>
-            {errors?.userEmail && (
-              <p className="p-error ml-5">{errors.userEmail.message}</p>
-            )}
-
+          <form className="error_msg">
             <div className="login-button">
               <Button
-                type="submit"
+                type="button"
                 label="Sign In"
                 className="loginButton"
-                disabled={isLoading}
-              />
-            </div>
-            <div className="google-login-button">
-              <Button
-                label="Sign in with Google"
-                onClick={() => googlelogin()}
-                className="p-button-outlined"
+                onClick={() => {
+                  console.log("Google Login Clicked");
+                  googleLoginn();
+                }}
               />
             </div>
             <div className="end-line">
